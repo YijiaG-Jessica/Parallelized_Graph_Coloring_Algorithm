@@ -62,6 +62,18 @@ void OmpColoring::color_graph() {
         }
     }
 
-    //Further fix?
+    //Optimization
+    #pragma omp parallel for shared(graph, colors)
+    for (auto node_id : nodes){
+        int maxNeighbor = 0;
+        int maxColor = 0;
+        for (auto neighbor : graph[node_id]){
+            maxNeighbor = std::max(maxNeighbor, neighbor);
+            maxColor = std::max(maxColor, nodes_color[neighbor]);
+        }
+        if (maxColor < nodes_color[node_id] && maxNeighbor < node_id){
+            nodes_color[node_id] = maxColor + 1;
+        }
+    }
 
 }
