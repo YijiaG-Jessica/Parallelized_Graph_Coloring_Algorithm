@@ -4,11 +4,11 @@
 
 
 /*Fast but not optimal*/
-class SeqColoring : public Coloring {
+class LdfColoring : public Coloring {
 private:
-    /* 
-     * Color one node with "first available color" method with respoect to its adjacent nodes' color type
-     */
+    std::unordered_map<int, int> degrees
+    void calculate_degrees();
+    std::vector<int> sort_nodes_by_degree();
     int color_node(int node);
 
 public:
