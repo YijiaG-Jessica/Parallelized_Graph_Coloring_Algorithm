@@ -16,7 +16,7 @@ public:
     /*
      * Call color_node in parallel
      * This might cause some color conflicts due to that the nodes are not colored in seq
-     * Atomically update the conflict color with a new color
+     * Atomically update the conflict node color with a new color for cur-node
      */
     virtual void color_graph() final;
 
