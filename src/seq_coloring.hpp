@@ -2,6 +2,8 @@
 
 #include "coloring.hpp"
 
+
+/*Fast but not optimal*/
 class SeqColoring : public Coloring {
 private:
     /* 
@@ -15,7 +17,4 @@ public:
 
     /*Traverse throughall the node according to node id and color each node using color_node()*/
     virtual void color_graph() final;
-
-    /*Print a pair with its color*/
-    virtual void print_node_color() final;
 };

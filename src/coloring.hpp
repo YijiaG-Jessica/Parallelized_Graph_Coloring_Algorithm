@@ -18,7 +18,6 @@ public:
     /*Create the graph with given nodes, pairs, graph*/
     void build_graph();
 
-    /*Traverse throughall the node according to node id and color each node using color_node()*/
     virtual void color_graph() = 0;
 
     /*Print a pair with its color*/
