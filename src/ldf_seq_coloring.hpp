@@ -6,7 +6,7 @@
 /*Fast but not optimal*/
 class SeqLdfColoring : public Coloring {
 private:
-    std::unordered_map<int, int> degrees
+    std::unordered_map<int, int> degrees;
     void calculate_degrees();
     std::vector<int> sort_nodes_by_degree();
     int color_node(int node);

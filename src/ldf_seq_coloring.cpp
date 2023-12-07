@@ -8,7 +8,7 @@
 #include <omp.h>
 
 // Constructor
-SeqLdfColoring::SeqLdfColoring(std::vector<std::pair<int, int>> edges) : edges(edges) {}
+// SeqLdfColoring::SeqLdfColoring(std::vector<std::pair<int, int>> edges) : edges(edges) {}
 
 // Build graph from edges
 void SeqLdfColoring::build_graph() {

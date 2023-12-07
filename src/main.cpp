@@ -3,15 +3,13 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <strings>
 #include <string>
 
-#include <coloring.hpp>
-#include <seq_coloring.hpp>
-#include <omp_coloring.hpp>
-#include <ldf_coloring.hpp>
+#include "seq_coloring.hpp"
+#include "omp_coloring.hpp"
+#include "timer.h"
 
-void read_testcase(std::string filename, std::vector<int> &nodes, std::vector<std::pair<int, int>> edges){
+void read_testcase(std::string filename, std::vector<int> &nodes, std::vector<std::pair<int, int>> &edges){
     std::ifstream fs;
     fs.open(filename);
 
@@ -36,6 +34,18 @@ void read_testcase(std::string filename, std::vector<int> &nodes, std::vector<st
     }
 }
 
+void print_info(double time_spent, std::unordered_map<int, int> colors){
+    std::cout.setf(std::ios::fixed, std::ios::floatfield);
+    std::cout.precision(5);
+    std::cout << "Time spent: " << time_spent << std::endl;
+    std::cout << "Colored with ";
+    int max = 0;
+    for (auto &color : colors) {
+        max = std::max(max, color.second);
+    }
+    std::cout << max + 1 << " colors\n"; 
+}
+
 
 int main(int argc, char* argv[]){
     /*arg1: filename, arg2: method{seq, omp, ldf}*/
@@ -51,21 +61,38 @@ int main(int argc, char* argv[]){
     //Read from testcases
     read_testcase(filename, nodes, edges);
 
-    if (method == "seq"){
+    Timer t;
+    std::unordered_map<int, int> colors;
+    if (method == "seq-greedy"){
+        std::cout << "Start Sequential Graph Coloring with Greedy Algorithm" << std::endl;
+        t.reset();
         SeqColoring color_seq_graph(nodes, edges);
+        color_seq_graph.build_graph();
         color_seq_graph.color_graph();
-        color_seq_graph.print_node_color();
-
-    } else if (method == "omp"){
+        //color_seq_graph.print_node_color();
+        double time_spent = t.elapsed();
+        print_info(time_spent, color_seq_graph.nodes_color);
+    } 
+    else if (method == "omp-gready"){
+        std::cout << "Start Parallelized Graph Coloring with Gready Algorithm" << std::endl;
         OmpColoring color_omp_graph(nodes, edges);
+        t.reset();
+        color_omp_graph.build_graph();
         color_omp_graph.color_graph();
         color_omp_graph.print_node_color();
+        double time_spent = t.elapsed();
+        print_info(time_spent, color_omp_graph.nodes_color);
+    } else if (method == "seq-ldf"){
+        std::cout << "Start Sequential Graph Coloring with Largest Degree First" << std::endl;
 
-    } else if (method == "ldf"){
-        LdfColoring color_ldf_graph(ndoes, edges);
-        color_ldf_graph.color_graph();
-        color_ldf_graph.print_node_color();
+
+    } else if (method == "omp-ldf"){
+        std::cout << "Start Parallelized Graph Coloring with Largest Degree First" << std::endl;
     }
 
+    
+
+
+    return 0;
 
 }

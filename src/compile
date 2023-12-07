@@ -1,0 +1,1 @@
+g++ -o color ./src/main.cpp ./src/coloring.cpp ./src/ldf_coloring.cpp ./src/ldf_seq_coloring.cpp ./src/omp_coloring.cpp ./src/seq_coloring.cpp

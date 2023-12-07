@@ -6,12 +6,13 @@
 /*Fast but not optimal*/
 class LdfColoring : public Coloring {
 private:
-    std::unordered_map<int, int> degrees
+    std::unordered_map<int, int> degrees;
     void calculate_degrees();
     std::vector<int> sort_nodes_by_degree();
     int color_node(int node);
 
 public:
+    //LdfColoring(std::vector<std::pair<int, int>> edges);
     /*Create the graph with given nodes, pairs, graph*/
     virtual void build_graph() final;
 

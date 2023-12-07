@@ -7,10 +7,18 @@
 #include <unordered_set>
 #include <vector>
 
+void OmpColoring::build_graph() {
+    for (auto [node1, node2] : edges) {
+        graph[node1].push_back(node2);
+        graph[node2].push_back(node1);
+    }
+}
+
+
 int OmpColoring::color_node(int node_id) {
     std::set<int> used_color;
     for (auto &adj_node : graph[node_id]) {
-        if (nodes_color.contains(adj_node) && adj_node < node_id) {
+        if (nodes_color.count(adj_node) == 1 && adj_node < node_id) {
             used_color.insert(nodes_color[adj_node]);
         }
     }
@@ -76,4 +84,11 @@ void OmpColoring::color_graph() {
         }
     }
 
+}
+
+
+void OmpColoring::print_node_color() {
+    for (auto [key, val] : nodes_color) {
+        std::cout << "Node: " << key << " Color: " << val << std::endl;
+    }
 }

@@ -9,7 +9,7 @@
 #include <omp.h>
 
 // Constructor
-LdfColoring::LdfColoring(std::vector<std::pair<int, int>> edges) : edges(edges) {}
+// LdfColoring::LdfColoring(std::vector<std::pair<int, int>> edges) : edges(edges) {}
 
 
 // Calculate degrees of nodes
